@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 //quando usar o computed na composition API não esquecer de importar.
 
 export default {
@@ -21,7 +21,11 @@ export default {
             return names.value.filter((name) => name.includes(search.value))
         })
 
-        return {names, search, matchingNames}
+        watch(search, () => {
+          console.log('watch function ran')
+        })
+
+        return {names, search, matchingNames, watch}
     }
 }
 </script>
