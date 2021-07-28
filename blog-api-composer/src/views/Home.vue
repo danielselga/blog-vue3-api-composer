@@ -1,9 +1,13 @@
 <template>
-  <div class="home">
+  <div class="Home">
       <h1>home</h1>
+      <div v-if="error"> {{ error }}</div>
       <button @click="showPosts = !showPosts">Toggle Posts</button>
       <button @click="posts.pop()">Remove a Post</button>
+      <div v-if="posts.length">
       <PostList v-if="showPosts" :posts="posts"/>
+      </div>
+      <div v-else>Loading...</div>
   </div>
 </template>
 
@@ -17,14 +21,30 @@ export default {
         PostList
     },
     setup(){
-        const posts = ref([
-            {title: 'Welcome to the blog', body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio expedita illum, cumque deleniti quam aut iste laudantium magnam dolores. Nihil velit consequatur animi sit voluptate aperiam quis, perferendis provident molestias voluptatum accusantium nostrum quos, nesciunt voluptatibus explicabo pariatur. Dolorem obcaecati sint non, voluptatem cumque incidunt necessitatibus accusamus doloribus earum dolor architecto odit. Dolor consequuntur nemo saepe fuga neque at culpa esse earum numquam delectus sint expedita fugit, maxime, totam repellat nostrum porro odio quos provident inventore temporibus! Optio, unde est ducimus repellendus ipsum explicabo dolores ullam veritatis expedita ipsa laborum illum aut sed? Fuga aperiam assumenda rerum, aliquid placeat doloribus, reiciendis quia quibusdam magni nesciunt qui! Est nesciunt facilis enim. Harum similique incidunt inventore veritatis, corporis at temporibus voluptas molestiae provident cum doloremque accusamus debitis voluptatum totam recusandae quis quod, ullam libero delectus exercitationem. Expedita tempora similique dicta nulla eius, tenetur eligendi cumque ducimus, iste cupiditate fugit earum, quis facilis repellendus aspernatur perspiciatis sequi. Asperiores cupiditate sequi omnis consequatur eveniet, at earum consectetur aut amet sed eaque reprehenderit nobis facilis illum iusto, facere id quis. Fugiat ipsa maiores deserunt molestiae velit ut recusandae dolorem qui molestias, fugit assumenda corporis, non perferendis sunt quae perspiciatis? Repudiandae exercitationem quis minima sit architecto.', id: 1},
-            {title: 'top 5 CSS Tips', body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio expedita illum, cumque deleniti quam aut iste laudantium magnam dolores. Nihil velit consequatur animi sit voluptate aperiam quis, perferendis provident molestias voluptatum accusantium nostrum quos, nesciunt voluptatibus explicabo pariatur. Dolorem obcaecati sint non, voluptatem cumque incidunt necessitatibus accusamus doloribus earum dolor architecto odit. Dolor consequuntur nemo saepe fuga neque at culpa esse earum numquam delectus sint expedita fugit, maxime, totam repellat nostrum porro odio quos provident inventore temporibus! Optio, unde est ducimus repellendus ipsum explicabo dolores ullam veritatis expedita ipsa laborum illum aut sed? Fuga aperiam assumenda rerum, aliquid placeat doloribus, reiciendis quia quibusdam magni nesciunt qui! Est nesciunt facilis enim. Harum similique incidunt inventore veritatis, corporis at temporibus voluptas molestiae provident cum doloremque accusamus debitis voluptatum totam recusandae quis quod, ullam libero delectus exercitationem. Expedita tempora similique dicta nulla eius, tenetur eligendi cumque ducimus, iste cupiditate fugit earum, quis facilis repellendus aspernatur perspiciatis sequi. Asperiores cupiditate sequi omnis consequatur eveniet, at earum consectetur aut amet sed eaque reprehenderit nobis facilis illum iusto, facere id quis. Fugiat ipsa maiores deserunt molestiae velit ut recusandae dolorem qui molestias, fugit assumenda corporis, non perferendis sunt quae perspiciatis? Repudiandae exercitationem quis minima sit architecto.', id: 2}
-            ])
+        const posts = ref([])
+        const error = ref(null)
 
-            const showPosts = ref(true)
+        /* O bloco try consegue recuperar os erros que possam ocorrer no codigo
+        Já o bloco catch serve para tratar esses erros que acontecem. */
+        const load = async () => {
+          try  {
+              let data = await fetch('http://localhost:3000/posts')
+              if(!data.ok) {
+                  throw Error('no data avaliable')
+              }
+              posts.value = await data.json()  
+            }
+          catch (err) {
+              error.value = err.message
+              console.log(error.value)
+          }
+        }
 
-            return {posts, showPosts}
+        load()
+        
+        const showPosts = ref(true)
+
+        return {posts, showPosts, error}
     }
 }
 </script>
