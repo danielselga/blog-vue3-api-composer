@@ -13,6 +13,7 @@
 
 <script>
 import PostList from '../components/PostList.vue'
+import getPosts from '../composables/getPosts'
 import {ref} from 'vue'
 
 export default {
@@ -21,27 +22,11 @@ export default {
         PostList
     },
     setup(){
-        const posts = ref([])
-        const error = ref(null)
 
-        /* O bloco try consegue recuperar os erros que possam ocorrer no codigo
-        Já o bloco catch serve para tratar esses erros que acontecem. */
-        const load = async () => {
-          try  {
-              let data = await fetch('http://localhost:3000/posts')
-              if(!data.ok) {
-                  throw Error('no data avaliable')
-              }
-              posts.value = await data.json()  
-            }
-          catch (err) {
-              error.value = err.message
-              console.log(error.value)
-          }
-        }
+        const {posts, error, load} = getPosts()
 
         load()
-        
+              
         const showPosts = ref(true)
 
         return {posts, showPosts, error}
