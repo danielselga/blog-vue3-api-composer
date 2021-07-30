@@ -7,6 +7,10 @@ const getPosts = () => {
     Já o bloco catch serve para tratar esses erros que acontecem. */
     const load = async () => {
         try  {
+            await new Promise(resolve => {
+                setTimeout(resolve, 2000)
+            })
+
             let data = await fetch('http://localhost:3000/posts')
             if(!data.ok) {
                 throw Error('no data avaliable')

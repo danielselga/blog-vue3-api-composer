@@ -1,24 +1,32 @@
 {
-    "posts": [{
-        "id": 1,
-        "title": "Welcome to the blog",
-        "body": "Lorem ipsum dolor, sit amet, lorem lorem dolor sit amet.",
-        "tags": [
-            "webdev",
-            "coding",
-            "news"
-        ]
-        
+  "posts": [
+    {
+      "id": 1,
+      "title": "Welcome to the blog",
+      "body": "Lorem ipsum dolor, sit amet, lorem lorem dolor sit amet.",
+      "tags": [
+        "webdev",
+        "coding",
+        "news"
+      ]
     },
     {
-        "id": 2,
-        "title": "Top 5 CSS Tips",
-        "body": "Lorem ipsum dolor, sit amet, lorem lorem dolor sit amet some test bla bla bla bla lorem dolor sit met blalbalblalba.",
-        "tags": [
-            "CSS",
-            "Webdev",
-            "coding"
-        ]
-        
-    }]
+      "id": 2,
+      "title": "Top 5 CSS Tips",
+      "body": "Lorem ipsum dolor, sit amet, lorem lorem dolor sit amet some test bla bla bla bla lorem dolor sit met blalbalblalba.",
+      "tags": [
+        "CSS",
+        "Webdev",
+        "coding"
+      ]
+    },
+    {
+      "title": "Teste 123123",
+      "body": "lorem lorem lauren lauren",
+      "tags": [
+        "css"
+      ],
+      "id": 3
+    }
+  ]
 }

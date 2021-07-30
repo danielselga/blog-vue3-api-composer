@@ -7,19 +7,22 @@
       <div v-if="posts.length">
       <PostList v-if="showPosts" :posts="posts"/>
       </div>
-      <div v-else>Loading...</div>
+      <div v-else><Spinner/></div>
   </div>
 </template>
 
 <script>
 import PostList from '../components/PostList.vue'
 import getPosts from '../composables/getPosts'
+import Spinner from '../components/Spinner.vue'
+
 import {ref} from 'vue'
 
 export default {
     name: 'home',
     components: {
-        PostList
+        PostList,
+        Spinner
     },
     setup(){
 
