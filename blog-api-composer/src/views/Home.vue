@@ -1,11 +1,11 @@
 <template>
   <div class="Home">
-      <h1>home</h1>
       <div v-if="error"> {{ error }}</div>
-      <button @click="showPosts = !showPosts">Toggle Posts</button>
-      <button @click="posts.pop()">Remove a Post</button>
+      <!-- <button @click="showPosts = !showPosts">Toggle Posts</button>
+      <button @click="posts.pop()">Remove a Post</button> -->
       <div v-if="posts.length">
       <PostList v-if="showPosts" :posts="posts"/>
+      <TagCloud :posts="posts"/>
       </div>
       <div v-else><Spinner/></div>
   </div>
@@ -13,6 +13,7 @@
 
 <script>
 import PostList from '../components/PostList.vue'
+import TagCloud from '../components/TagCloud.vue'
 import getPosts from '../composables/getPosts'
 import Spinner from '../components/Spinner.vue'
 
@@ -22,7 +23,8 @@ export default {
     name: 'home',
     components: {
         PostList,
-        Spinner
+        Spinner,
+        TagCloud
     },
     setup(){
 
